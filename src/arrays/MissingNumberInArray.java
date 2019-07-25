@@ -11,7 +11,13 @@ public class MissingNumberInArray {
         //int n;
         //usingScanner();
         int a[] = { 1, 2, 4, 5, 6 };
-        int miss = getMissingNo(a, 5);
+        int miss = getMissingNo2(a, 5);
+//        int a[] = { 1, 2, 3, 4, 5, 6 };
+//        int miss = getMissingNo(a, 6);
+//        int a[] = { 1, 2, 3, 4, 5, 6 };
+//        int miss = getMissingNo2(a, 6);
+//        int a[] = { 2 };
+//        int miss = getMissingNo2(a, 1);
         System.out.println(miss);
     }
 
@@ -45,22 +51,40 @@ public class MissingNumberInArray {
     }
 
     // Function to find missing number
-    static int getMissingNo(int a[], int n)
-    {
+    static int getMissingNo(int a[], int n) {
         int x1 = a[0];
         int x2 = 1;
 
         /* For xor of all the elements
            in array */
-        for (int i = 1; i < n; i++)
+        for (int i = 1; i < n; i++) {
             x1 = x1 ^ a[i];
+            System.out.println("i: " + i + ", x1: " + x1);
+        }
 
         /* For xor of all the elements
            from 1 to n+1 */
-        for (int i = 2; i <= n + 1; i++)
+        for (int i = 2; i <= n + 1; i++) {
             x2 = x2 ^ i;
+            System.out.println("i: " + i + ", x2: " + x2);
+        }
 
         return (x1 ^ x2);
+    }
+
+    static int getMissingNo2(int a[], int n) {
+//        int a[] = { 1, 2, 4, 5, 6 };
+        int res = 0;
+        int x;
+        for(int i = 1; i < n; i++)
+        {
+            x = a[i-1];
+            res = res^x;
+            res = res^i;
+            System.out.println("res: " + res);
+        }
+        //System.out.println(res^n);
+        return (res^n);
     }
 
 
