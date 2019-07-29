@@ -61,8 +61,10 @@ public class PalindromePermutation {
     public static void main(String[] args) {
         String str = "Tact Coa";
 //        boolean answ = isPermutationOfPalindrome(str);
-        boolean answ = isPermutationOfPalindromeS2(str);
+//        boolean answ = isPermutationOfPalindromeS2(str);
+        boolean answ = isPermutationOfPalindromeFin(str);
         System.out.println("answ: "+answ);
+        testBitActions();
 
     }
 
@@ -98,14 +100,14 @@ public class PalindromePermutation {
     }
 
     //    Final Solution (Most elegant ------------------------==================================
-    boolean isPermutationOfPalindromeFin(String phrase) {
+    public static boolean isPermutationOfPalindromeFin(String phrase) {
         int bitVector = createBitVector(phrase);
         return bitVector == 0 || checkExactlyOneBitSet(bitVector);
     }
 
     /* Create a bit vector for the string. For each letter with value i, toggle the
     * ith bit. */
-    int createBitVector(String phrase) {
+    public static int createBitVector(String phrase) {
         int bitVector = 0;
         for (char c : phrase.toCharArray()) {
             int x = getCharNumber(c);
@@ -114,8 +116,19 @@ public class PalindromePermutation {
         return bitVector;
     }
 
+    public static void testBitActions(){
+        int bitVector = 0;
+        int x = getCharNumber('a');
+        int mask = 1 << x;
+        System.out.println("mask: "+ ~mask);
+        bitVector |= mask;
+//        bitVector &= ~mask;
+        System.out.println("bitVector: "+bitVector);
+        System.out.println("check: "+(1 & (1 - 1)));  // == 0 only if left is 0 or 1
+    }
+
     /* Toggle the ith bit in the integer. */
-    int toggle(int bitVector, int index) {
+    public static int toggle(int bitVector, int index) {
         if (index < 0) return bitVector;
 
         int mask = 1 << index;
@@ -129,7 +142,7 @@ public class PalindromePermutation {
 
     /* Check that exactly one bit is set by subtracting one from the integer and
  * ANDing it with the original integer. */
-    boolean checkExactlyOneBitSet(int bitVector) {
+    public static boolean checkExactlyOneBitSet(int bitVector) {
         return (bitVector & (bitVector - 1)) == 0;
     }
 
