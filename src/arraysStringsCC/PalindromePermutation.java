@@ -13,7 +13,9 @@ public class PalindromePermutation {
 
     public static boolean isPermutationOfPalindrome(String phrase) {
         int[] table = buildCharFrequencyTable(phrase);
+//        printTable(table);
         return checkMaxOneOdd(table);
+
     }
 
     /* Check that no more than one character has an odd count. */
@@ -54,9 +56,25 @@ public class PalindromePermutation {
         }
         return table;
     }
-
+    //Input: Tact Coa
+    //Output: True
     public static void main(String[] args) {
+        String str = "Tact Coa";
+        boolean answ = isPermutationOfPalindrome(str);
+        System.out.println("answ: "+answ);
 
+    }
+
+    public static void printTable(int [] tab){
+        System.out.println("Table len:"+tab.length);
+//        for (int i:tab) {
+//            if (i != 0)
+//                System.out.println(""+i);
+//        }
+        for (int i = 0; i < tab.length; i++) {
+            if (tab[i] != 0)
+                System.out.println(""+i+", cnt: "+ tab[i]);
+        }
     }
 
 

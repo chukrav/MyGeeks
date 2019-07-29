@@ -57,7 +57,7 @@ public class CheckPermutation {
     }
 
     public static void main(String[] args) {
-        String s = "dogd";
+        String s = "dogg";
         String t = "godd";
 
 //        System.out.println("Permutated: " + permutation(s,t));
