@@ -19,29 +19,83 @@ public class ReturnKthToLast {
         One way to do this is to change the problem to simply printing the k-th to last element. Then, we can pass
         back the value of the counter simply through return values.
         */
-    int printKthToLast(LinkedlistNode head, int k) {
+    public static int printKthToLast(LinkedlistNode head, int k) {
         if (head== null) {
             return 0;
         }
         int index = printKthToLast(head.next, k) + 1;
         if (index == k) {
             System.out.println(k + "th to last node is " + head.data);
+            return head.data;
         }
         return index;
     }
 
     public static void main(String[] args) {
 
+        //LinkedList<LinkedlistNode> list = new LinkedList<>();
+        LinkedlistNode head = null;
+        for (int i = 0; i < 10; i++) {
+            head = addToList(new LinkedlistNode(i), head);
+        }
+
+        int index = printKthToLast(head, 1);
+        System.out.println("--index: "+index);
+        Index id = new Index();
+        LinkedlistNode node = kthToLast(head,5);
+        System.out.println("--node.data: " + node.data);
+
+
+    }
+    /*Approach C: Create a Wrapper Class.
+
+     */
+    private static class Index{
+        public int value = 0;
+    }
+
+    public static  LinkedlistNode kthToLast(LinkedlistNode head, int k) {
+        Index idx = new Index();
+        return kthToLast(head, k, idx);
+    }
+
+    public static LinkedlistNode kthToLast(LinkedlistNode head, int k, Index idx) {
+        if (head== null) {
+            return null;
+        }
+        LinkedlistNode node = kthToLast(head.next, k, idx);
+        idx.value = idx.value + 1;
+        if (idx.value == k) {
+//            System.out.println("return head ------------->");
+            return head;
+        }
+//        System.out.println("return idx: "+ idx.value);
+        return node;
     }
 
 
 
-    private class LinkedlistNode {
+//    ----------------------------------
+
+    public static class LinkedlistNode {
         public int data;
         public LinkedlistNode next;
         public LinkedlistNode(int num){
             data = num;
             next = null;
         }
+    }
+
+    public static LinkedlistNode addToList(LinkedlistNode node, LinkedlistNode head){
+        if (head == null) {
+            head = node;
+        } else {
+            LinkedlistNode tmp = head;
+            while(tmp.next != null){
+                tmp = tmp.next;
+            }
+            tmp.next = node;
+        }
+        return  head;
     }
 }
