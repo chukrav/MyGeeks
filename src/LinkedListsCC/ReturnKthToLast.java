@@ -39,11 +39,15 @@ public class ReturnKthToLast {
             head = addToList(new LinkedlistNode(i), head);
         }
 
-        int index = printKthToLast(head, 1);
+        int index = printKthToLast(head, 5);
         System.out.println("--index: "+index);
         Index id = new Index();
         LinkedlistNode node = kthToLast(head,5);
-        System.out.println("--node.data: " + node.data);
+//        LinkedlistNode node = kthToLast(head,5, id);
+        System.out.println("--node.data: " + node.data + ", id: "+
+                id.value);
+        node = nthTolast(head, 5);
+        System.out.println("nthTolast node.data: " + node.data);
 
 
     }
@@ -73,7 +77,27 @@ public class ReturnKthToLast {
         return node;
     }
 
+    /*    Solution #3: Iterative
+        We can use two pointers, pl and p2. We place them k nodes apart in the linked list.
+     */
+    public static LinkedlistNode nthTolast(LinkedlistNode head, int k) {
+        LinkedlistNode pl = head;
+        LinkedlistNode p2 = head;
 
+     /* Move pl k nodes into the list.*/
+        for (int i= 0; i < k; i++) {
+            if (pl == null) return null; // Out of bounds
+            pl = pl.next;
+        }
+
+     /* Move them at the same pace. When pl hits the end, p2 will be at the right
+     * element. */
+        while (pl!= null) {
+            pl = pl.next;
+            p2 = p2.next;
+        }
+        return p2;
+    }
 
 //    ----------------------------------
 
