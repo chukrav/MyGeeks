@@ -58,12 +58,13 @@ public class SumLists {
         L2.addToList(new LinkedListNode(2));
 //        L2.printList();
 
-        LinkedListNode newHead = addlists(L1.getHead(), L2.getHead(),0);
+//        LinkedListNode newHead = addlists(L1.getHead(), L2.getHead(),0);
+        LinkedListNode newHead = addLists2(L1.getHead(), L2.getHead());
         printList(newHead);
 
     }
     //------------- Follow Up-----------------------------------
-    LinkedListNode addLists2(LinkedListNode l1, LinkedListNode l2) {
+    public static LinkedListNode addLists2(LinkedListNode l1, LinkedListNode l2) {
         int len1 = length(l1);
         int len2 = length(l2);
         /* Pad the shorter list with zeros - see note (1) */
@@ -87,7 +88,7 @@ public class SumLists {
     }
 
 
-    PartialSum addListsHelper(LinkedListNode l1, LinkedListNode l2) {
+    static PartialSum addListsHelper(LinkedListNode l1, LinkedListNode l2) {
         if (l1== null && l2== null) {
             PartialSum sum = new PartialSum();
             return sum;
@@ -108,7 +109,7 @@ public class SumLists {
     }
 
     /* Pad the list with zeros*/
-    LinkedListNode padList(LinkedListNode node, int padding) {
+    static LinkedListNode padList(LinkedListNode node, int padding) {
         LinkedListNode head= node;
         for (int i= 0; i < padding; i++) {
             head= insertBefore(head, 0);
@@ -117,7 +118,7 @@ public class SumLists {
     }
 
     /* Helper function to insert node in the front of a linked list*/
-    LinkedListNode insertBefore(LinkedListNode list, int data) {
+    static LinkedListNode insertBefore(LinkedListNode list, int data) {
         LinkedListNode node= new LinkedListNode(data);
         if (list != null) {
             node.next= list;
@@ -134,12 +135,12 @@ public class SumLists {
         }
     }
 
-    private class PartialSum {
+    private static class PartialSum {
         public LinkedListNode sum = null;
         public int carry= 0;
     }
 
-    private int length(LinkedListNode node) {
+    private static int length(LinkedListNode node) {
         int len = 0;
         LinkedListNode tmp = node;
         while (tmp != null){
