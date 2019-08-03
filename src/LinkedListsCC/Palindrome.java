@@ -13,7 +13,7 @@ import java.util.Stack;
 public class Palindrome {
 
     //    Solution #1: Reverse and Compare
-    boolean isPalindrome(LinkedListNode head) {
+    boolean isPalindromeP(LinkedListNode head) {
         LinkedListNode reversed= reverseAndClone(head);
         return isEqual(head, reversed);
     }
@@ -50,7 +50,7 @@ the middle of the linked list. By this point, the stack will have all the elemen
  from the front of the linked
 list, but in reverse order.
  */
-    boolean isPalindrome2(LinkedListNode head) {
+    public static boolean isPalindrome2(LinkedListNode head) {
         LinkedListNode fast= head;
         LinkedListNode slow= head;
         Stack<Integer> stack= new Stack<Integer>();
@@ -82,6 +82,70 @@ list, but in reverse order.
     }
 
     public static void main(String[] args) {
+//        0 - > 1 - > 2 - > 1 - > 0
+        LinkedListCC L1 = new LinkedListCC();
+        L1.addToList(new LinkedListNode(0));
+        L1.addToList(new LinkedListNode(1));
+        L1.addToList(new LinkedListNode(2));
+        L1.addToList(new LinkedListNode(1));
+        L1.addToList(new LinkedListNode(0));
+        //L1.printList();
 
+        boolean polindrome = isPalindrome2(L1.getHead());
+        System.out.println("is polindrome: "+polindrome);
+        System.out.println("-------------------------------");
+        polindrome = isPalindrome(L1.getHead());
+        System.out.println("is polindrome rec: "+polindrome);
+
+    }
+    //    Recursion -----------------
+    static boolean isPalindrome(LinkedListNode head) {
+        int length= lengthOfList(head);
+        Result p = isPalindromeRecurse(head, length);
+        return p.result;
+    }
+
+    static Result isPalindromeRecurse(LinkedListNode head, int length) {
+        if (head== null || length<= 0) { // Even number of nodes
+            return new Result(head, true);
+        } else if (length== 1) { // Odd number of nodes
+            return new Result(head.next, true);
+        }
+
+         /* Recurse on sublist. */
+        Result res = isPalindromeRecurse(head.next, length - 2);
+
+         /* If child calls are not a palindrome, pass back up
+         * a failure. */
+        if  (!res.result || res.node== null) {
+            return res;
+        }
+
+         /* Check if matches corresponding node on other side. *I
+         res.result= (head.data== res.node.data);
+
+         I* Return corresponding node. */
+        res.node= res.node.next;
+
+        return res;
+    }
+
+    static int lengthOfList(LinkedListNode n) {
+        int size= 0;
+        while (n != null) {
+            size++;
+            n = n.next;
+        }
+        return size;
+    }
+
+    static class Result {
+        public LinkedListNode node;
+        public boolean result;
+
+        public Result(LinkedListNode head, boolean res) {
+            node = head;
+            result = res;
+        }
     }
 }
