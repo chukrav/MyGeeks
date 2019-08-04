@@ -25,15 +25,18 @@ public class Intersection {
         L1.addToList(new LinkedListNode(3));
         L1.addToList(new LinkedListNode(1));
         L1.addToList(new LinkedListNode(5));
-        L1.addToList(new LinkedListNode(7));
+        L1.addToList(new LinkedListNode(9));
 
         LinkedListNode N1 = new LinkedListNode(7);
         LinkedListNode N2 = new LinkedListNode(2);
         LinkedListNode N3 = new LinkedListNode(1);
 
-        L1.addToList(N1);
-        L1.addToList(N2);
-        L1.addToList(N3);
+//        L1.addToList(N1);
+//        L1.addToList(N2);
+//        L1.addToList(N3);
+//        L1.printList();
+
+//        System.out.println("=================: ");
 
         LinkedListCC L2 = new LinkedListCC();
         L2.addToList(new LinkedListNode(4));
@@ -41,9 +44,18 @@ public class Intersection {
         L2.addToList(N1);
         L2.addToList(N2);
         L2.addToList(N3);
+        L2.printList();
+        System.out.println("=================: ");
 
-        LinkedListNode intersect = findintersection(L1.getHead(), L2.getHead());
-        System.out.println("Intersect Node data: "+intersect.data);
+        System.out.println("L1,head: "+L1.getHead().data);
+        L1.addToList(N1);
+        L1.addToList(N2);
+        L1.addToList(N3);
+        L1.printList();
+       // System.out.println("L1,head: "+L1.getHead().data);
+
+        //LinkedListNode intersect = findintersection(L1.getHead(), L2.getHead());
+        //System.out.println("Intersect Node data: "+intersect.data);
 
 
     }
