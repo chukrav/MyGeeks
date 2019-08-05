@@ -11,6 +11,8 @@ package StacksQueuesCC;
 
         pp 238  */
 
+import java.util.EmptyStackException;
+
 public class ThreeInOne {
 
     //    Approach 1: Fixed Division
@@ -40,7 +42,7 @@ public class ThreeInOne {
         /* Pop item from top stack. */
         public int pop(int stackNum) throws EmptyStackException {
             if (isEmpty(stackNum)) {
-                throw new EmptyStackException("Empty stack");
+                throw new EmptyStackException();
             }
             int topindex = indexOfTop(stackNum);
             int value = values[topindex]; // Get top
@@ -52,7 +54,7 @@ public class ThreeInOne {
         /* Return top element. */
         public int peek(int stackNum) throws EmptyStackException {
             if (isEmpty(stackNum)) {
-                throw new EmptyStackException("Empty stack");
+                throw new EmptyStackException();
             }
             return values[indexOfTop(stackNum)];
         }
@@ -78,17 +80,43 @@ public class ThreeInOne {
 
     public static void main(String[] args) {
         FixedMultiStack stack = new FixedMultiStack(10);
-        int index = stack.indexOfTop(2);
-        System.out.println("index: "+index);
+//        int index = stack.indexOfTop(2);
+//        System.out.println("index: "+index);
+        try {
+            stack.push(0,1);
+            stack.push(0,2);
+            stack.push(0,3);
 
-    }
+            stack.push(1,4);
+            stack.push(1,5);
+            stack.push(1,6);
 
-    static class EmptyStackException extends Exception {
-        public EmptyStackException(String errorExcept) {
-            super(errorExcept);
+            stack.push(2,7);
+            stack.push(2,8);
+            stack.push(2,9);
+
+        } catch (FullStackException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println("stack[0].pop: "+stack.pop(0));
+            System.out.println("stack[1].pop: "+stack.pop(1));
+            System.out.println("stack[2].pop: "+stack.pop(2));
+            System.out.println("stack[0].pop: "+stack.pop(0));
+            System.out.println("stack[1].pop: "+stack.pop(1));
+            System.out.println("stack[2].pop: "+stack.pop(2));
+
+            System.out.println("stack[0].pop: "+stack.pop(0));
+//            System.out.println("stack[0].pop: "+stack.pop(0));
+        } catch (EmptyStackException e) {
+            e.printStackTrace();
         }
 
     }
+
+//    Approach 2: Flexible Divisions
+
+
 
     static class FullStackException extends Exception {
         public FullStackException(String errorExcept) {
