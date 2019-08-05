@@ -14,7 +14,7 @@ package StacksQueuesCC;
 public class ThreeInOne {
 
     //    Approach 1: Fixed Division
-    class FixedMultiStack {
+    static class FixedMultiStack {
         private int numberOfStacks = 3;
         private int stackCapacity;
         private int[] values;
@@ -77,6 +77,9 @@ public class ThreeInOne {
     }
 
     public static void main(String[] args) {
+        FixedMultiStack stack = new FixedMultiStack(10);
+        int index = stack.indexOfTop(2);
+        System.out.println("index: "+index);
 
     }
 
