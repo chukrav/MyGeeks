@@ -40,4 +40,14 @@ public class LinkedListCC {
         }
     }
 
+    public void add(LinkedListNode node){
+        node.next = head;
+        head = node;
+    }
+
+    public void add(int n){
+        LinkedListNode node = new LinkedListNode(n);
+        add(node);
+    }
+
 }

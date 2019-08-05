@@ -22,41 +22,40 @@ public class Intersection {
 
     public static void main(String[] args) {
         LinkedListCC L1 = new LinkedListCC();
-        L1.addToList(new LinkedListNode(3));
-        L1.addToList(new LinkedListNode(1));
-        L1.addToList(new LinkedListNode(5));
-        L1.addToList(new LinkedListNode(9));
 
-        LinkedListNode N1 = new LinkedListNode(7);
+        LinkedListNode N1 = new LinkedListNode(1);
         LinkedListNode N2 = new LinkedListNode(2);
-        LinkedListNode N3 = new LinkedListNode(1);
+        LinkedListNode N3 = new LinkedListNode(7);
 
-//        L1.addToList(N1);
-//        L1.addToList(N2);
-//        L1.addToList(N3);
-//        L1.printList();
+        L1.add(N1);
+        L1.add(N2);
+        L1.add(N3);
 
-//        System.out.println("=================: ");
+        L1.add(9);
+        L1.add(5);
+        L1.add(1);
+        L1.add(3);
+
+        L1.printList();
+
+        System.out.println("=================: ");
 
         LinkedListCC L2 = new LinkedListCC();
-        L2.addToList(new LinkedListNode(4));
-        L2.addToList(new LinkedListNode(6));
-        L2.addToList(N1);
-        L2.addToList(N2);
-        L2.addToList(N3);
+        L2.add(N1);
+        L2.add(N2);
+        L2.add(N3);
+
+        L2.add(6);
+        L2.add(4);
         L2.printList();
         System.out.println("=================: ");
 
-        System.out.println("L1,head: "+L1.getHead().data);
-        L1.addToList(N1);
-        L1.addToList(N2);
-        L1.addToList(N3);
-        L1.printList();
-       // System.out.println("L1,head: "+L1.getHead().data);
-
-        //LinkedListNode intersect = findintersection(L1.getHead(), L2.getHead());
-        //System.out.println("Intersect Node data: "+intersect.data);
-
+//        Result resultl = getTailAndSize(L2.getHead());
+//        System.out.println("tail, size: "+resultl.tail.data+", "+resultl.size);
+//        LinkedListNode node = getKthNode(L1.getHead(), 2);
+//        System.out.println("new head.data: "+node.data);
+        LinkedListNode node = findintersection(L1.getHead(), L2.getHead());
+        System.out.println("Intersect node.data: "+node.data);
 
     }
 
@@ -106,3 +105,4 @@ public class Intersection {
     }
 
 }
+
