@@ -88,6 +88,12 @@ public class RouteBetweenNodes {
             count = 0;
         }
 
+        public Graph(int numVertices) {
+            MAX_VERTICES = numVertices;
+            vertices = new Node[MAX_VERTICES];
+            count = 0;
+        }
+
         public void addNode(Node x) {
             if (count < vertices.length) {
                 vertices[count] = x;
