@@ -92,6 +92,7 @@ public class RouteBetweenNodes {
             MAX_VERTICES = numVertices;
             vertices = new Node[MAX_VERTICES];
             count = 0;
+//            this.Graph();
         }
 
         public void addNode(Node x) {
