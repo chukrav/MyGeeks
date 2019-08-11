@@ -9,13 +9,15 @@ this isn't actually necessary. We can traverse the graph any way that we'd like,
  the pre-order traversal algorithm, where we pass in level + 1 to the next recursive call.
     pp 254    */
 
-import javax.swing.tree.TreeNode;
+//import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import static TreesAndGraphsCC.tersBinaryTree.createBinaryTree;
+
 public class ListOfDepths {
 
-     void createLevelLinkedList(TreeNode root, ArrayList<LinkedList<TreeNode>> lists, int level) {
+     static void createLevelLinkedList(TreeNode root, ArrayList<LinkedList<TreeNode>> lists, int level) {
          if (root== null) return; // base case
 
          LinkedList<TreeNode> list = null;
@@ -35,7 +37,7 @@ public class ListOfDepths {
     }
 
 
-    ArrayList<LinkedList<TreeNode>> createLevelLinkedList(TreeNode root) {
+    static ArrayList<LinkedList<TreeNode>> createLevelLinkedList(TreeNode root) {
          ArrayList<LinkedList<TreeNode>> lists = new ArrayList<LinkedList<TreeNode>>();
          createLevelLinkedList(root, lists, 0);
          return lists;
@@ -43,16 +45,23 @@ public class ListOfDepths {
 
     public static void main(String[] args) {
 
-    }
+         BinaryTree bt = createBinaryTree();
+         ArrayList<LinkedList<TreeNode>> list = createLevelLinkedList(bt.getRoot());
+        System.out.println("ArrayList size: "+list.size());
+        System.out.println("Level size: "+list.get(2).size());
 
+    }
+/*
     static class TreeNode{
          int value;
         TreeNode left;
         TreeNode right;
+        TreeNode parent;
         public TreeNode(int val){
             value = val;
             left = null;
             right = null;
+            parent = null;
         }
-    }
+    }  */
 }
