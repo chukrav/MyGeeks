@@ -93,6 +93,18 @@ public class RouteBetweenNodesLe {
         }
     }
 
+    static class PathNode{
+        GraphNode previous;
+        //int cost;
+        public PathNode(GraphNode previous){
+            this.previous = previous;
+        }
+
+        public GraphNode getPrevious() {
+            return previous;
+        }
+    }
+
 
     public static void main(String[] args) {
         Graph graph = BuildGraph_ex7();
