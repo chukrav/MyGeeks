@@ -6,6 +6,10 @@ https://www.baeldung.com/java-binary-tree
 
 //import org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -25,6 +29,7 @@ public class tersBinaryTree {
 //        assertFalse(bt.containsNode(9));
         System.out.println("  Contains 9: "+bt.containsNode(9));
         bt.traverseInOrder(bt.getRoot());
+
 
     }
 

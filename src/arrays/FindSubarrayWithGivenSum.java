@@ -8,17 +8,23 @@ public class FindSubarrayWithGivenSum {
     public static void main(String[] args) {
         //SubarraySum arraysum = new SubarraySum();
         //int arr[] = {15, 2, 4, 8, 9, 5, 10, 23};
-        int arr[] = {1, 2, 3, 7, 5};
+
+        //74
+        int sum = 665;
+        Integer arr[] = {142,112,54,69,148,45,63,158,38,60,124,142,130,179,117,36,191,43,89,107,41,143,65,49,47,6,91,130,171,151,7,102,194,149,30,24,85,155,157,41,167,177,132,109,145,40,27,124,138,139,119,83,130,142,34,116,40,59,105,131,178,107,74,187,22,146,125,73,71,30,178,174,98,113};
+
+//        int arr[] = {1, 2, 3, 7, 5};
+//        //        int sum = 23;
+//        int sum = 12;
+
         int n = arr.length;
-//        int sum = 23;
-        int sum = 12;
         subArraySumN(arr, n, sum);
 
     }
     //     O(n^2)
     // Returns true if the there is a subarray of arr[] with sum equal to
 //       'sum' otherwise returns false.  Also, prints the result */
-    public static int subArraySum(int arr[], int n, int sum)
+    public static int subArraySum(Integer arr[], int n, int sum)
     {
         int curr_sum, i, j;
 
@@ -50,7 +56,7 @@ public class FindSubarrayWithGivenSum {
 
     /* Returns true if the there is a subarray of arr[] with sum equal to
        'sum' otherwise returns false.  Also, prints the result */
-    public static int subArraySumN(int arr[], int n, int sum)
+    public static int subArraySumN(Integer arr[], int n, int sum)
     {
         int curr_sum = arr[0], start = 0, i;
 
@@ -69,8 +75,8 @@ public class FindSubarrayWithGivenSum {
             {
 //                int p = i-1;
                 int p = i;
-                System.out.println("Sum found between indexes " + (start+1)
-                        + " and " + p);
+                System.out.println("" + (start+1)
+                        + " " + p);
                 return 1;
             }
 
@@ -80,8 +86,8 @@ public class FindSubarrayWithGivenSum {
 
         }
 
-        System.out.println("No subarray found");
-        return 0;
+        //System.out.println("No subarray found");
+        return -1;
     }
 
 

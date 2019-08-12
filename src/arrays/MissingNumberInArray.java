@@ -67,7 +67,7 @@ public class MissingNumberInArray {
                 int[] ar = Arrays.stream(input.split(" "))
                         .mapToInt(Integer::parseInt)
                         .toArray();
-                System.out.println("ar.length: "+ar.length+"LEN: "+LEN);
+//                System.out.println("ar.length: "+ar.length+"LEN: "+LEN);
 //            int ar[] = new int[LEN];
                 int res = 0;//, ar = 0;
                 for (int i = 1; i < LEN; i++){
@@ -75,10 +75,11 @@ public class MissingNumberInArray {
                     res = res ^ i;
                     //res = res ^ Integer.parseInt(s.readLine());
                     res = res ^ ar[i-1];
-                    System.out.println("*** " + res);
+//                    System.out.println("*** " + res);
                 }
                 res = res ^ LEN;
-                System.out.println("final: " + res);
+//                System.out.println("final: " + res);
+                System.out.println("" + res);
 
             }
 

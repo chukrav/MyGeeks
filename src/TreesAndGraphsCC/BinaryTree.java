@@ -111,6 +111,8 @@ First, we need to find the node that will replace the deleted node.
 /* Depth-First Search
 The in-order traversal consists of first visiting the left sub-tree, then the root node,
 and finally the right sub-tree:
+tree: 6 4 8 3 5 7 9 from root down (left-to-right)
+out: 3 4 5 6 7 8 9
  */
     public void traverseInOrder(TreeNode node) {
         if (node != null) {
@@ -122,6 +124,7 @@ and finally the right sub-tree:
 
     /* Pre-order traversal visits first the root node, then the left subtree, and finally
      the right subtree:
+     out: 6 4 3 5 8 7 9
       */
     public void traversePreOrder(TreeNode node) {
         if (node != null) {
@@ -131,6 +134,9 @@ and finally the right sub-tree:
         }
     }
 
+    /* Post-order traversal visits the left subtree, the right subtree, and the root node at the end:
+    out: 3 5 4 7 9 8 6
+     */
     public void traversePostOrder(TreeNode node) {
         if (node != null) {
             traversePostOrder(node.left);
