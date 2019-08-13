@@ -175,4 +175,47 @@ out: 3 4 5 6 7 8 9
             }
         }
     }
+
+    // Iterative method to find height of Binary Tree
+    int treeHeight(TreeNode node)
+    {
+        // Base Case
+        if (node == null)
+            return 0;
+
+        // Create an empty queue for level order tarversal
+        Queue<TreeNode> q = new LinkedList();
+
+        // Enqueue Root and initialize height
+        q.add(node);
+        int height = 0;
+
+        while (1 == 1)
+        {
+            // nodeCount (queue size) indicates number of nodes
+            // at current lelvel.
+            int nodeCount = q.size();
+            if (nodeCount == 0)
+                return height;
+            height++;
+
+            // Dequeue all nodes of current level and Enqueue all
+            // nodes of next level
+            while (nodeCount > 0)
+            {
+                TreeNode newnode = q.peek();
+                q.remove();
+                if (newnode.left != null)
+                    q.add(newnode.left);
+                if (newnode.right != null)
+                    q.add(newnode.right);
+                nodeCount--;
+            }
+        }
+    }
+
+    public int getHeight(TreeNode root) {
+        if (root == null) return 0;// Base case
+        return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
+    }
 }
