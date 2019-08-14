@@ -17,8 +17,10 @@ public class BinaryTree {
 
         if (value < current.value) {
             current.left = addRecursive(current.left, value);
+            current.left.parent = current;  // If you want parent link!
         } else if (value > current.value) {
             current.right = addRecursive(current.right, value);
+            current.right.parent = current;  // If you want parent link!
         } else {
             // value already exists
             return current;
@@ -29,6 +31,9 @@ public class BinaryTree {
 
     public void add(int value) {
         root = addRecursive(root, value);
+    }
+    public void add(TreeNode node) {
+        root = addRecursive(root, node.value);
     }
 
     public TreeNode getRoot() {
@@ -47,8 +52,23 @@ public class BinaryTree {
                 : containsNodeRecursive(current.right, value);
     }
 
+    private TreeNode findNodeRecursive(TreeNode current, int value) {
+        if (current == null) {
+            return null;
+        }
+        if (value == current.value) {
+            return current;
+        }
+        return value < current.value
+                ? findNodeRecursive(current.left, value)
+                : findNodeRecursive(current.right, value);
+    }
+
     public boolean containsNode(int value) {
         return containsNodeRecursive(root, value);
+    }
+    public TreeNode findNode(int value) {
+        return findNodeRecursive(root, value);
     }
 
     /*Once we find the node to delete, there are 3 main different cases:
