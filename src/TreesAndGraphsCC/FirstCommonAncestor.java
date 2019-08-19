@@ -25,7 +25,7 @@ This is essentially the same problem as question 2.7 which find the intersection
         TreeNode second= delta > 0 ? p : q; // get deeper node
         second= goUpBy(second, Math.abs(delta)); // move deeper node up
 
-         /* Find where paths intersect. */
+        /* Find where paths intersect. */
         while (first != second && first != null && second != null) {
             first= first.parent;
             second= second.parent;
@@ -63,7 +63,7 @@ common ancestor.
 */
 
     TreeNode commonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
-         /* Check if either node is not in the tree, or if one covers the other. */
+        /* Check if either node is not in the tree, or if one covers the other. */
         if (!covers(root, p) || !covers(root, q)) {
             return null;
         } else if (covers(p, q)) {
@@ -73,7 +73,7 @@ common ancestor.
         }
 
 
-         /* Traverse upwards until you find a node that covers q. */
+        /* Traverse upwards until you find a node that covers q. */
         TreeNode sibling= getSibling(p);
         TreeNode parent= p.parent;
         while (!covers(sibling, q)) {
@@ -97,6 +97,77 @@ common ancestor.
         TreeNode parent = node.parent;
         return parent.left== node? parent.right : parent.left;
     }
+
+    /*Solution #3: Without Links to Parents
+Alternatively, you could follow a chain in which p and q are on the same side. That is, if p and q are both on
+the left of the node, branch left to look for the common ancestor. If they are both on the right, branch right
+to look for the common ancestor. When p and q are no longer on the same side, you must have found the
+first common ancestor.
+This algorithm runs in O(n) time on a balanced tree. This is because covers is called on 2n nodes in the
+first call (n nodes for the left side, and n nodes for the right side). After that the algorithm branches left or
+right, at which point covers will be called on 2n/2 nodes, then 2n/4, and so on. This results in a runtime
+of O(n).
+*/
+
+    TreeNode commonAncestor3(TreeNode root, TreeNode p, TreeNode q) {
+        /* Error check - one node is not in the tree. */
+        if (!covers(root, p) || ! covers(root, q)) {
+            return null;
+        }
+        return ancestorHelper(root, p, q);
+    }
+
+    TreeNode ancestorHelper(TreeNode root, TreeNode p, TreeNode q) {
+        if (root== null || root == p || root== q) {
+            return root;
+        }
+
+        boolean pIsOnLeft = covers(root.left, p);
+        boolean qIsOnLeft= covers(root.left, q);
+        if (pIsOnLeft != qIsOnLeft) {//Nodes are on different side
+            return root;
+        }
+        TreeNode childSide = pIsOnLeft ? root.left : root.right;
+        return ancestorHelper(childSide, p, q);
+    }
+
+    /*   boolean covers(TreeNode root, TreeNode p) {
+    if (root== null) return false;
+    if (root== p) return true;
+    return covers(root.left, p) || covers(root.right, p);
+    }
+                 */
+ /*Solution #4: Optimized
+Although Solution #3 is optimal in its runtime, we may recognize that there is still some inefficiency in how
+it operates. Specifically, covers searches all nodes under root for p and q, including the nodes in each
+subtree (root. left and root.right). Then, it picks one of those subtrees and searches all of its nodes.
+Each subtree is searched over and over again.
+
+  */
+    /* The below code has a bug. */
+    TreeNode commonAncestor4(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return null;
+        if (root == p && root == q) return root;
+
+        TreeNode x = commonAncestor4(root.left, p, q);
+        if (x != null && x != p && x != q) { // Already found ancestor
+            return x;
+        }
+
+        TreeNode y = commonAncestor4(root.right, p, q);
+        if (y != null && y != p && y != q) { // Already found ancestor
+            return y;
+        }
+
+        if (x != null && y != null) { // p and q found in diff. subtrees
+            return root; // This is the common ancestor
+        } else if (root == p || root == q) {
+            return root;
+        } else {
+            return x == null ? y: x; /* return the non-null value */
+        }
+    }
+
 
 
 }

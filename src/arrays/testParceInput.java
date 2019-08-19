@@ -109,7 +109,7 @@ public class testParceInput {
         }
     }
 
-    private static ArrayList<Integer[]> usingBufferedReader2(ArrayList<Integer[]> listList){
+    public static ArrayList<Integer[]> usingBufferedReader2(ArrayList<Integer[]> listList){
         try{
             BufferedReader s = new BufferedReader(new InputStreamReader(System.in));
             Integer[] n = {Integer.parseInt(s.readLine())};//  .nextInt();
