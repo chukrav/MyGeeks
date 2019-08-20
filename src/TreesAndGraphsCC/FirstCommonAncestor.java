@@ -144,7 +144,9 @@ subtree (root. left and root.right). Then, it picks one of those subtrees and se
 Each subtree is searched over and over again.
 
   */
-    /* The below code has a bug. */
+    /* The below code has a bug.
+     The problem with this code occurs in the case where a node is not contained in the tree. */
+
     TreeNode commonAncestor4(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) return null;
         if (root == p && root == q) return root;
@@ -168,6 +170,64 @@ Each subtree is searched over and over again.
         }
     }
 
+    /*In other words, when we call commonAncestor on the right subtree, the code will return node 5, just as
+it should. The problem is that in finding the common ancestor of pand q, the calling function can't distinguish between
+ the two cases:
+• Case 1: p is a child of q (or, q is a child of p)
+• Case 2: p is in the tree and q is not (or, q is in the tree and pis not)
+In either of these cases, commonAncestor will return p. In the first case, this is the correct return value, but
+in the second case, the return value should be null.
+We somehow need to distinguish between these two cases, and this is what the code below does. This
+code solves the problem by returning two values: the node itself and a flag indicating whether this node is
+actually the common ancestor.
+
+     */
+
+    static class Result {
+        public TreeNode node;
+        public boolean isAncestor;
+        public Result(TreeNode n, boolean isAnc) {
+            node = n;
+            isAncestor = isAnc;
+        }
+    }
+
+    TreeNode commonAncestor5(TreeNode root, TreeNode p, TreeNode q) {
+        Result r = commonAncHelper5(root, p, q);
+        if (r.isAncestor) {
+            return r.node;
+        }
+        return null;
+    }
+
+    Result commonAncHelper5(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return new Result(null, false);
+
+        if (root == p && root == q) {
+            return new Result(root, true);
+        }
+
+        Result rx = commonAncHelper5(root.left, p, q);
+        if (rx.isAncestor) {//Found common ancestor
+            return rx;
+        }
+
+        Result ry = commonAncHelper5(root.right, p, q);
+        if (ry.isAncestor) {//Found common ancestor
+            return ry;
+        }
+
+        if (rx.node != null && ry.node != null) {
+            return new Result(root, true); // This is the common ancestor
+        } else if (root == p || root == q) {
+            /* If we're currently at p or q, and we also found one of those nodes in a
+             * subtree, then this is truly an ancestor and the flag should be true. */
+            boolean isAncestor = rx.node != null || ry.node != null;
+            return new Result(root, isAncestor);
+        } else {
+            return new Result(rx.node != null ? rx.node : ry.node, false);
+        }
 
 
+    }
 }
