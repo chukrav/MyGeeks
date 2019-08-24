@@ -34,8 +34,7 @@ public class BSTSequences {
         /* Weave together each list from the left and right sides. */
         for (LinkedList<Integer> left : leftSeq) {
             for (LinkedList<Integer> right : rightSeq) {
-                ArrayList<LinkedList<Integer>> weaved=
-                        new ArrayList<LinkedList<Integer>>();
+                ArrayList<LinkedList<Integer>> weaved = new ArrayList<LinkedList<Integer>>();
                 weaveLists(left, right, weaved, prefix);
                 result.addAll(weaved);
             }
@@ -49,7 +48,7 @@ public class BSTSequences {
     void weaveLists(LinkedList<Integer> first, LinkedList<Integer> second,
                     ArrayList<LinkedList<Integer>> results, LinkedList<Integer> prefix) {
         /* One list is empty. Add remainder to [a cloned] prefix and store result. */
-        if (first.size()== 0 || second.size() == 0) {
+        if (first.size() == 0 || second.size() == 0) {
             LinkedList<Integer> result = (LinkedList<Integer>) prefix.clone();
             result.addAll(first);
             result.addAll(second);
