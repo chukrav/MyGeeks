@@ -40,4 +40,6 @@ public class AllPermutations {
     public static void main(String[] args) {
         permute(new int[]{1,2,3,4});
     }
+
+
 }
