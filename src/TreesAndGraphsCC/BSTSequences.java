@@ -16,7 +16,7 @@ import java.util.LinkedList;
 
 public class BSTSequences {
 
-    ArrayList<LinkedList<Integer>> allSequences(TreeNode node) {
+    static ArrayList<LinkedList<Integer>> allSequences(TreeNode node) {
         ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>();
 
         if (node == null) {
@@ -45,8 +45,8 @@ public class BSTSequences {
     /* Weave lists together in all possible ways. This algorithm works by removing the
      * head from one list, recursing, and then doing the same thing with the other
      * list. */
-    void weaveLists(LinkedList<Integer> first, LinkedList<Integer> second,
-                    ArrayList<LinkedList<Integer>> results, LinkedList<Integer> prefix) {
+    static void weaveLists(LinkedList<Integer> first, LinkedList<Integer> second,
+                           ArrayList<LinkedList<Integer>> results, LinkedList<Integer> prefix) {
         /* One list is empty. Add remainder to [a cloned] prefix and store result. */
         if (first.size() == 0 || second.size() == 0) {
             LinkedList<Integer> result = (LinkedList<Integer>) prefix.clone();
@@ -73,6 +73,31 @@ public class BSTSequences {
     }
 
     public static void main(String[] args) {
+        BinaryTree bt = new BinaryTree();
+        buildBT(bt);
+        bt.traverseLevelOrder();
+        ArrayList<LinkedList<Integer>> list =  allSequences(bt.getRoot());
+        System.out.println("\nlist size: "+list.size());
+        printResults(list);
 
+    }
+
+    public static void buildBT(BinaryTree bt){
+        bt.add(6);
+        bt.add(4);
+        bt.add(8);
+        bt.add(3);
+//        bt.add(5);
+//        bt.add(7);
+        bt.add(9);
+    }
+
+    public static void printResults(ArrayList<LinkedList<Integer>> list){
+        for (LinkedList<Integer> lst:list) {
+            for (Integer node:lst) {
+                System.out.print(node +", ");
+            }
+            System.out.println("");
+        }
     }
 }
