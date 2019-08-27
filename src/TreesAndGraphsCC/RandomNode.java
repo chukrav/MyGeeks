@@ -41,7 +41,7 @@ This means that each node must know the size of the nodes on the left and the si
   just store a size variable in each node. Increment size on inserts and decrement it on deletes.
 
      */
-    class TreeNode {
+    static class TreeNode {
         private int data;
         public TreeNode left;
         public TreeNode right;
@@ -65,9 +65,21 @@ This means that each node must know the size of the nodes on the left and the si
             }
         }
 
+        public TreeNode getIthNode(int i) {
+            int leftSize = left == null? 0: left.size();
+            if (i < leftSize) {
+                return left.getIthNode(i);
+            } else if (i == leftSize) {
+                return this;
+            } else {
+                /* Skipping over leftSize + 1 nodes, so subtract them. */
+                return right.getIthNode(i - (leftSize + 1));
+            }
+        }
+
         public void insertinOrder(int d) {
             if (d <= data) {
-                if (left ==null) {
+                if (left == null) {
                     left = new TreeNode(d);
                 } else {
                     left.insertinOrder(d);
@@ -86,9 +98,9 @@ This means that each node must know the size of the nodes on the left and the si
         public int data() { return data;}
 
         public TreeNode find(int d) {
-            if (d ==data) {
+            if (d == data) {
                 return this;
-            } else if (d <= data) {
+            } else if (d < data) {
                 return left != null? left.find(d) : null;
             } else if (d > data) {
                 return right != null ? right.find(d) : null;
@@ -97,5 +109,68 @@ This means that each node must know the size of the nodes on the left and the si
         }
     }
 
+    /*Option #7 [Fast & Working]
+Random number calls can be expensive. If we'd like, we can reduce the number of random number
+ calls substantially.
+BSTree: 20, 10, 30, 5, 15, 35, 3, 7, 17
+We traversed left because we picked a number between O and 5 (inclusive). When we traverse
+ left, we again pick a random number between O and 5. Why re-pick? The first number will
+ work just fine. But what if we went right instead? We have a number between 7 and
+  8 (inclusive) but we would need a number between O and 1 (inclusive).
+   That's easy to fix:just subtract out LEFT_SIZE + 1.
+  Another way to think about what we're doing is that the initial random number call indicates
+  which node (i) to return, and then we're locating the ith node in an in-order traversal.
+  Subtracting LEFT_SIZE + 1 from i reflects that, when we go right, we skip over LEFT_SIZE + 1
+  nodes in the in-order traversal.
+     */
+
+    static class Tree {
+        TreeNode root = null;
+
+        public int size() { return root == null ? 0: root.size(); }
+        public TreeNode getRandomNode() {
+            if (root == null) return null;
+
+            Random random = new Random();
+            int i= random.nextInt(size());
+            return root.getIthNode(i);
+//            return root.getRandomNode();
+        }
+
+
+        public void insertInOrder(int value) {
+            if (root == null) {
+                root = new TreeNode(value);
+            } else {
+                root.insertinOrder(value);
+            }
+        }
+    }
+
+    //BSTree: 20, 10, 30, 5, 15, 35, 3, 7, 17
+    public static void main(String[] args) {
+        Tree tree = new Tree();
+        buildTree(tree);
+        TreeNode random = tree.getRandomNode();
+        System.out.println("random node: "+random.data+", sz: "+random.size);
+
+    }
+
+    public static void buildTree(Tree tree){
+        tree.insertInOrder(20);
+        tree.insertInOrder(10);
+        tree.insertInOrder(30);
+        tree.insertInOrder(5);
+        tree.insertInOrder(15);
+        tree.insertInOrder(35);
+        tree.insertInOrder(3);
+        tree.insertInOrder(7);
+        tree.insertInOrder(17);
+    }
 
 }
+
+
+
+
+
