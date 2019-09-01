@@ -36,6 +36,7 @@ public class BinaryToString {
         System.out.println("ooo: "+(0.5 + 1./8.));
         String res = printBinary(0.635);
         System.out.println(res);
+        //System.out.println("Integer.BYTES: "+Integer.BYTES*8);
     }
 }
 
