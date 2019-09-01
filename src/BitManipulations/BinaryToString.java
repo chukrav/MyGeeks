@@ -75,19 +75,21 @@ number to . 5, then .25, and so on. The code below demonstrates this approach.
 //        System.out.println("restored dec: "+num);
         String res = printBinary2(0.635);
         System.out.println(res);
+        //System.out.println("Integer.BYTES: "+Integer.BYTES*8);
 
     }
 
-    public static double restoreDec(String binary){
+    public static double restoreDec(String binary) {
         double num = 0.;
-        for (int i = 1; i < binary.length(); ++i){
+        for (int i = 1; i < binary.length(); ++i) {
             char c = binary.charAt(i);
-            if (c == '1'){
-                num += Math.pow(2,(-1*i));
+            if (c == '1') {
+                num += Math.pow(2, (-1 * i));
             }
         }
         return num;
     }
+
 }
 
 

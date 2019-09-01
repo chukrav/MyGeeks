@@ -55,9 +55,8 @@ public class FlipBitToWin {
             int thisSeq = 0;
             if (zerosSeq == 1) {//Can merge
                 thisSeq = onesSeqLeft + 1 + onesSeqRight;
-
-
-            } if (zerosSeq > 1) {//Just add a zero to either side
+            }
+            if (zerosSeq > 1) {//Just add a zero to either side
                 thisSeq = 1 + Math.max(onesSeqRight, onesSeqLeft);
 
             } else if (zerosSeq == 0) {//No zero, but take either side
