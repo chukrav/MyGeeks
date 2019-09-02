@@ -44,7 +44,7 @@ public class FlipBitToWin {
     }
 
     /* Given the lengths of alternating sequences of 0s and ls, find the longest one
-31 * we can build. */
+     * we can build. */
     int findLongestSequence(ArrayList<Integer> seq) {
         int maxSeq = 1;
 
@@ -69,8 +69,17 @@ public class FlipBitToWin {
     }
 
     public static void main(String[] args) {
+
         System.out.println("---: "+ (4 & 1));
     }
+
+    /*Can we do better? Recall the concept of Best Conceivable Runtime. The B.C.R. for this algorithm is 0(b)
+(since we'll always have to read through the sequence), so we know we can't optimize the time. We can,
+however, reduce the memory usage.
+
+     */
+
+
 
 
 }
