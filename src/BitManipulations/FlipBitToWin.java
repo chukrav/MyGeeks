@@ -80,7 +80,7 @@ however, reduce the memory usage.
      */
     int flipBit(int a) {
         /* If all ls, this is already the longest sequence. */
-        if (~a== 0) return Integer.BYTES * 8;
+        if (~a == 0) return Integer.BYTES * 8;
 
         int currentLength = 0;
         int previousLength= 0;
