@@ -1,5 +1,6 @@
 package Game;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Graph {
@@ -53,7 +54,27 @@ public class Graph {
     }
 
     public boolean removeNode(int value){
-        
+        Node removeNode = find(value);
+        if (removeNode == null)
+            return false;
+        nodes.remove(removeNode);
+        for (Node node : nodes) {
+            node.RemoveNeighbor(removeNode);
+        }
+        return true;
+
+    }
+
+    public boolean removeEdges(int value1, int value2){
+        Node node1 = find(value1);
+        Node node2 = find(value2);
+        if (node1 == null || node2 == null)
+            return false;
+        if (!node1.getNeighbors().contains(node2))
+            return false;
+        node1.RemoveNeighbor(node2);
+        node2.RemoveNeighbor(node1);
+        return true;
     }
 
     public Node find(int value){
@@ -61,6 +82,14 @@ public class Graph {
             if (node.getValue() == value)
                 return node;
         }
+        return null;
+    }
+
+    //@Override
+    public String toString(){
+        StringBuilder line = new StringBuilder();
+        line.append("V: "+ va)
+
         return null;
     }
 }
