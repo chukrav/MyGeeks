@@ -35,6 +35,8 @@ public class NextNumber {
         b = a - 1;      // all zeros, followed by p ones.
         mask = ~b;      // all ones, followed by p zeros.
         n = n & mask;   // clears rightmost p bits.
+        int rm = 1 << p;
+        n = n | rm; // flip rightmost non-trailing zero bit.
 //        n &= ~((1 << p) - 1);
 
         //To insert cl - 1 ones on the right, we do the following:
@@ -45,6 +47,9 @@ public class NextNumber {
         int c = 7;
         c >>= 1;
         System.out.println("BInt: " + Integer.toBinaryString(13948));
+        System.out.println("BInt: " + Integer.toBinaryString(n));
+
+        System.out.println("New Int: " + n);
 
     }
 
@@ -81,6 +86,68 @@ public class NextNumber {
 
         return n;
     }
+
+    /* Bit Manipulation Approach for Get Previous Number
+    To implement getPrev, we follow a very similar approach.
+    1. Compute c0 and cl. Note that cl is the number of trailing ones, and c0 is the size of the block of zeros
+    immediately to the left of the trailing ones.
+    2. Flip the rightmost non-trailing one to a zero. This will be at position p cl+ c0.
+    3. Clear all bits to the right of bit p.
+    4. Insert cl+ 1 ones immediately to the right of position p.
+    Note that Step 2 sets bit p to a zero and Step 3 sets bits 0 through p-1 to a zero.
+         */
+    int getPrev(int n) {
+        int temp = n;
+        int c0 = 0;
+        int c1 = 0;
+        while ((temp & 1) == 1) {
+            c1++;
+            temp >>= 1;
+        }
+        if (temp == 0) return -1;
+
+        while (((temp & 1) == 0) && (temp != 0)) {
+            c0++;
+            temp >>= 1;
+        }
+
+        int p = c0 + c1; // position of rightmost non-trailing one
+        n &= ((-0) << (p + 1)); // clears from bit p onwards
+
+        int mask = (1 << (c1 + 1)) - 1; // Sequence of (cl+l) ones
+        n |= mask << (c0 - 1);
+
+        return n;
+    }
+
+    /* Arithmetic Approach to Get Next Number
+    If c1 is the number of trailing ones, c0 is the size of the zero block immediately following, and p c0 + c1,
+we can word the initial getPrev solution as follows:
+1. Set the pth bit to 1.
+2. Set all bits following p to 0.
+3. Set bits 0 through cl - 2 to 1. This will be cl - 1 total bits.
+
+n += 2^c0 - 1 ; // Sets trailing 0s to 1, giving us p trailing ls
+n += 1;         // Flips first p ls to 0s, and puts a 1 at bit p.
+
+Now, to perform Step 3 arithmetically, we just do:
+n += 2^(c1 - 1) - 1;  // Sets trailing cl - 1 zeros to ones.
+This math reduces to:
+next = n + (2^c0 - 1) + 1 + ( 2^(c1 - 1) - 1)
+= n + 2^c0 + 2^(c1 - 1) - 1;
+
+Arithmetic Approach to Get Previous Number
+1. Set the p-th bit to 0;
+2. Set all bits following p to 1;
+3. Set bits O through c0 - 1 to 0.
+We can implement this arithmetically as follows. For clarity in the example, we will assume n = 10000011.
+This makes c1 = 2 and c0 = 5.
+
+n -= 2^c1 - l;   // Removes trailing ls. n is now 10000000.
+n -= 1;         // Flips trailing 0s. n is now 01111111.
+n -= 2^(c0 - 1) - 1;   // Flips last (c0-1) 0s. n is now 01110000.
+
+     */
 
 
 }
