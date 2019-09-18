@@ -72,4 +72,11 @@ public class Node {
         distances.clear();
         return true;
     }
+
+    public String toString(){
+        StringBuilder line = new StringBuilder();
+        line.append("V: "+ value + )
+
+        return null;
+    }
 }
