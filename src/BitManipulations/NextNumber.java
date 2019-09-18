@@ -44,7 +44,7 @@ public class NextNumber {
         //Or, more concisely:    n |= (1 << (c1 - 1)) - 1;
         int c = 7;
         c >>= 1;
-        System.out.println("BInt: " + Integer.toBinaryString(c));
+        System.out.println("BInt: " + Integer.toBinaryString(13948));
 
     }
 

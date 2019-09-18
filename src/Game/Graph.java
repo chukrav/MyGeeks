@@ -88,7 +88,7 @@ public class Graph {
     //@Override
     public String toString(){
         StringBuilder line = new StringBuilder();
-        line.append("V: "+ va)
+        //line.append("V: "+ va)
 
         return null;
     }
