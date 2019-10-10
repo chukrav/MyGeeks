@@ -54,6 +54,66 @@ public class Poison {
         }
     }
 
+    static class TestStrip {
+        public static int DAYS_FOR_RESULT = 7;
+        private ArrayList<ArrayList<Bottle>> dropsByDay = new ArrayList<ArrayList<Bottle>>();
+        private int id;
+
+        public TestStrip(int id) {
+            this.id = id;
+        }
+
+        public int getid() {
+            return id;
+        }
+
+        /* Resize list of days/drops to be large enough. */
+        private void sizeDropsForDay(int day) {
+            while (dropsByDay.size() <= day) {
+                dropsByDay.add(new ArrayList<Bottle>());
+            }
+        }
+
+        /* Add drop from bottle on specific day. */
+        public void addDropOnDay(int day, Bottle bottle) {
+            sizeDropsForDay(day);
+            ArrayList<Bottle> drops = dropsByDay.get(day);
+            drops.add(bottle);
+        }
+
+        /* Checks if any of the bottles in the set are poisoned. */
+        private boolean hasPoison(ArrayList<Bottle> bottles) {
+            for (Bottle b : bottles) {
+                if (b.isPoisoned()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /* Gets bottles used in the test DAYS_FOR_RESULT days ago. */
+        public ArrayList<Bottle> getlastWeeksBottles(int day) {
+            if (day < DAYS_FOR_RESULT) {
+                return null;
+            }
+            return dropsByDay.get(day - DAYS_FOR_RESULT);
+        }
+
+        /* Checks for poisoned bottles since before DAYS_FOR_RESULT */
+        public boolean isPositiveOnDay(int day) {
+            int testDay = day - DAYS_FOR_RESULT;
+            if (testDay < 0 || testDay >= dropsByDay.size()) {
+                return false;
+            }
+            for (int d = 0; d <= testDay; d++) {
+                ArrayList<Bottle> bottles = dropsByDay.get(d);
+                if (hasPoison(bottles)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     int findPoisonedBottle(ArrayList<Bottle> bottles, ArrayList<TestStrip> strips) {
         if (bottles.size() > 1000 || strips.size() < 10) return -1;
@@ -98,7 +158,7 @@ public class Poison {
     }
 
     /* Run set of tests for this day.*/
-    void runTestSet(Arraylist<Bottle> bottles, ArrayList<TestStrip> strips, int day) {
+    void runTestSet(ArrayList<Bottle> bottles, ArrayList<TestStrip> strips, int day) {
         if (day > 3) return;// only works for 3 days (digits)+one extra
 
         for (Bottle bottle : bottles) {
@@ -110,7 +170,7 @@ public class Poison {
 
     /* Get strip that should be used on this bottle on this day.*/
     int getTestStripindexForDay(Bottle bottle, int day, int nTestStrips) {
-        int id = bottle.getid();
+        int id = bottle.getId();
         switch (day) {
             case 0:
                 return id / 100;
